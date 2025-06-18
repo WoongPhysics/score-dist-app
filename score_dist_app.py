@@ -69,9 +69,9 @@ if uploaded_file is not None:
             bbox=dict(facecolor='white', alpha=0.5, edgecolor='gray'))
 
     cutstr = (
-        f"1등급컷: {int(cut_1)}점\n"
-        f"2등급컷: {int(cut_2)}점\n"
-        f"3등급컷: {int(cut_3)}점"
+        f"예상 1등급컷: {int(cut_1)}점\n"
+        f"예상 2등급컷: {int(cut_2)}점\n"
+        f"예상 3등급컷: {int(cut_3)}점"
     )
     ax.text(0.02, 0.82, cutstr, transform=ax.transAxes, fontsize=13, va='top', ha='left',
             bbox=dict(facecolor='white', alpha=0.5, edgecolor='gray'))
