@@ -4,7 +4,7 @@ import seaborn as sns
 import numpy as np
 import streamlit as st
 import os
-import pandas as pm
+import pandas as pd
 
 def set_korean_font(font_path):
     if os.path.exists(font_path):
@@ -25,7 +25,7 @@ st.title("점수 분포 시각화 및 예측 프로그램")
 uploaded_file = st.file_uploader("CSV 파일을 업로드하세요", type=["csv"])
 
 if uploaded_file is not None:
-    df = pd.read_csv(uploaded_file, encoding='cp949')
+    df = pd.read_csv(uploaded_file, encoding='utf-8')
     score_col = st.selectbox("점수 컬럼을 선택하세요", df.columns)
     cutoff = st.number_input("최소 점수(컷오프)", value=22)
     scores = df[df[score_col] >= cutoff][score_col]
