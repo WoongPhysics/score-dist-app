@@ -36,7 +36,15 @@ if uploaded_file is not None:
     cut_1 = np.percentile(scores, 100 - 8)   # 상위 8% (1등급)
     cut_2 = np.percentile(scores, 100 - 20)  # 상위 20% (2등급)
     cut_3 = np.percentile(scores, 100 - 50)  # 상위 50% (3등급)
-
+    
+    # 표로도 안내
+    st.markdown(f"""
+    ### 📊 집단 상위 등급컷(%) [N수생 보정]  
+    - **1등급**: {cut_1:.1f}점  
+    - **2등급**: {cut_2:.1f}점  
+    - **3등급**: {cut_3:.1f}점
+    """)
+    
     # --- 그래프 ---
     fig, ax = plt.subplots(figsize=(8,6))
     sns.histplot(scores, bins=25, color="#7DBAFF", alpha=0.6, edgecolor='k', stat='density', label='히스토그램', ax=ax)
@@ -74,13 +82,5 @@ if uploaded_file is not None:
     ax.legend()
 
     st.pyplot(fig)
-
-    # 표로도 안내
-    st.markdown(f"""
-    ### 📊 집단 상위 등급컷(%) [N수생 보정]  
-    - **1등급**: {cut_1:.1f}점  
-    - **2등급**: {cut_2:.1f}점  
-    - **3등급**: {cut_3:.1f}점
-    """)
     
     
