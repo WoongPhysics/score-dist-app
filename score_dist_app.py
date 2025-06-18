@@ -16,7 +16,7 @@ def set_korean_font(font_path):
         print("폰트 경로가 잘못됨:", font_path)
         return None
     
-font_path = './fonts/PretendardVariable.ttf'
+font_path = 'PretendardVariable.ttf'
 set_korean_font(font_path)
 
 st.title("점수 분포 시각화 및 예측 프로그램")
