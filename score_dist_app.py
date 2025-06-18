@@ -4,6 +4,7 @@ import seaborn as sns
 import numpy as np
 import streamlit as st
 import os
+import pandas as pm
 
 def set_korean_font(font_path):
     if os.path.exists(font_path):
