@@ -28,7 +28,15 @@ if uploaded_file is not None:
     df = pd.read_csv(uploaded_file, encoding='cp949')
     score_col = st.selectbox("점수 컬럼을 선택하세요", df.columns)
     cutoff = st.number_input("최소 점수(컷오프)", value=22)
-    scores = df[df[score_col] >= cutoff][score_col]
+    
+    # === 결측치/문자/이상값 제거 ===
+    # 1. 실수/정수 변환 불가(문자/공백)은 NaN 처리
+    df[score_col] = pd.to_numeric(df[score_col], errors='coerce')
+    # 2. NaN, 범위 외 점수(0~50 범위 외), 컷오프 미만 값 모두 제거
+    scores = df[score_col].dropna()
+    scores = scores[(scores >= cutoff) & (scores <= 50)]
+    # 3. 정수형 변환(소수점 버림)
+    scores = scores.astype(int)
 
     # --- 평균/중앙값, 등급컷 계산 ---
     mean_score = scores.mean()
@@ -82,5 +90,3 @@ if uploaded_file is not None:
     ax.legend()
 
     st.pyplot(fig)
-    
-    
