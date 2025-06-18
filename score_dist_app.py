@@ -1,11 +1,12 @@
+import streamlit as st
+import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.font_manager as fm
 import seaborn as sns
 import numpy as np
-import streamlit as st
 import os
-import pandas as pd
 
+# --- 한글 폰트 강제 적용 함수 ---
 def set_korean_font(font_path):
     if os.path.exists(font_path):
         fm.fontManager.addfont(font_path)
@@ -25,7 +26,10 @@ st.title("점수 분포 시각화 및 예측 프로그램")
 uploaded_file = st.file_uploader("CSV 파일을 업로드하세요", type=["csv"])
 
 if uploaded_file is not None:
+    # === CSV 읽기(cp949) ===
     df = pd.read_csv(uploaded_file, encoding='cp949')
+
+    # === 점수 컬럼 선택 ===
     score_col = st.selectbox("점수 컬럼을 선택하세요", df.columns)
     cutoff = st.number_input("최소 점수(컷오프)", value=22)
     
@@ -37,7 +41,7 @@ if uploaded_file is not None:
     scores = scores[(scores >= cutoff) & (scores <= 50)]
     # 3. 정수형 변환(소수점 버림)
     scores = scores.astype(int)
-
+    
     # --- 평균/중앙값, 등급컷 계산 ---
     mean_score = scores.mean()
     median_score = scores.median()
@@ -45,14 +49,14 @@ if uploaded_file is not None:
     cut_2 = np.percentile(scores, 100 - 20)  # 상위 20% (2등급)
     cut_3 = np.percentile(scores, 100 - 50)  # 상위 50% (3등급)
     
-    # 표로도 안내
+    # --- 표 안내 ---
     st.markdown(f"""
     ### 📊 현장 수강생 기반 등급컷 예상 [N수생 보정]  
     - **예상 1등급 컷**: {cut_1:.1f}점  
     - **예상 2등급 컷**: {cut_2:.1f}점  
     - **예상 3등급 컷**: {cut_3:.1f}점
     """)
-    
+
     # --- 그래프 ---
     fig, ax = plt.subplots(figsize=(8,6))
     sns.histplot(scores, bins=25, color="#7DBAFF", alpha=0.6, edgecolor='k', stat='density', label='히스토그램', ax=ax)
@@ -73,10 +77,10 @@ if uploaded_file is not None:
 
     # 등급컷 안내 (평균/중앙값 아래)
     cutstr = (
-    f"상위 8% (1등급컷): {int(cut_1)}점\n"
-    f"상위 20% (2등급컷): {int(cut_2)}점\n"
-    f"상위 50% (3등급컷): {int(cut_3)}점"
-)
+        f"상위 8% (1등급컷): {int(cut_1)}점\n"
+        f"상위 20% (2등급컷): {int(cut_2)}점\n"
+        f"상위 50% (3등급컷): {int(cut_3)}점"
+    )
     ax.text(
         0.02, 0.82, cutstr, transform=ax.transAxes,
         fontsize=13, va='top', ha='left',
