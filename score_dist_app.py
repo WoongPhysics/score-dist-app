@@ -1,21 +1,21 @@
-import streamlit as st
-import pandas as pd
 import matplotlib.pyplot as plt
-import seaborn as sns
 import matplotlib.font_manager as fm
-import os
+import seaborn as sns
 import numpy as np
+import streamlit as st
+import os
 
 def set_korean_font(font_path):
     if os.path.exists(font_path):
-        fontprop = fm.FontProperties(fname=font_path)
-        plt.rc('font', family=fontprop.get_name())
+        fm.fontManager.addfont(font_path)
+        font_name = fm.FontProperties(fname=font_path).get_name()
+        plt.rc('font', family=font_name)
         plt.rcParams['axes.unicode_minus'] = False
-        return fontprop.get_name()
+        return font_name
     else:
-        print("폰트 경로가 잘못됨:", font_path)
+        st.warning(f"⚠️ 폰트 경로가 잘못됨: {font_path}")
         return None
-    
+
 font_path = 'PretendardVariable.ttf'
 set_korean_font(font_path)
 
