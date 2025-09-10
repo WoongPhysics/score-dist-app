@@ -78,6 +78,6 @@ if uploaded_file is not None:
     ax.axvline(cut_1, color='#FFBB00', linestyle='--', linewidth=2, label='1등급컷')
     ax.axvline(cut_2, color='#FF8700', linestyle='--', linewidth=2, label='2등급컷')
     ax.axvline(cut_3, color='#FF2E00', linestyle='--', linewidth=2, label='3등급컷')
-"""
     ax.legend()
+"""
     st.pyplot(fig)
