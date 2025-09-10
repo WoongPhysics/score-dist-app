@@ -67,7 +67,7 @@ if uploaded_file is not None:
     textstr = f"평균: {mean_score:.2f}\n중앙값: {median_score:.2f}\n"
     ax.text(0.02, 0.98, textstr, transform=ax.transAxes, fontsize=13, va='top', ha='left',
             bbox=dict(facecolor='white', alpha=0.5, edgecolor='gray'))
-"""
+    """
     cutstr = (
         f"예상 1등급컷: {int(cut_1)}점\n"
         f"예상 2등급컷: {int(cut_2)}점\n"
@@ -79,5 +79,5 @@ if uploaded_file is not None:
     ax.axvline(cut_2, color='#FF8700', linestyle='--', linewidth=2, label='2등급컷')
     ax.axvline(cut_3, color='#FF2E00', linestyle='--', linewidth=2, label='3등급컷')
     ax.legend()
-"""
+    """
     st.pyplot(fig)
